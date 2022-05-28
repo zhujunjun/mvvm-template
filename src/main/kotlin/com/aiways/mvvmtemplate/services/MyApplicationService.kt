@@ -1,6 +1,6 @@
-package com.github.zhujunjun.mvvmtemplate.services
+package com.aiways.mvvmtemplate.services
 
-import com.github.zhujunjun.mvvmtemplate.MyBundle
+import com.aiways.mvvmtemplate.MyBundle
 
 class MyApplicationService {
 

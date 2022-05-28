@@ -1,7 +1,7 @@
-package com.github.zhujunjun.mvvmtemplate.services
+package com.aiways.mvvmtemplate.services
 
 import com.intellij.openapi.project.Project
-import com.github.zhujunjun.mvvmtemplate.MyBundle
+import com.aiways.mvvmtemplate.MyBundle
 
 class MyProjectService(project: Project) {
 

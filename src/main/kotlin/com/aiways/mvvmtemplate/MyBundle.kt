@@ -1,4 +1,4 @@
-package com.github.zhujunjun.mvvmtemplate
+package com.aiways.mvvmtemplate
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
