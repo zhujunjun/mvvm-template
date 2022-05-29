@@ -16,7 +16,7 @@ val mvvmFragmentTemplate
         screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
 
         val fragmentClass = stringParameter {
-            name = "Fragment Name"
+            name = "Fragment Name(只输入名字，不要包含Fragment)"
             default = "Main"
             help = "只输入名字，不要包含Fragment"
             constraints = listOf(Constraint.NONEMPTY)

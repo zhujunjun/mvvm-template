@@ -8,13 +8,11 @@ fun mvvmActivityJava(
 )="""
 package ${packageName}.ui.activity;
 import android.os.Bundle;
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider;
 import ${packageName}.R;
 import com.aiways.awbase.activity.AppActivity;
 import ${packageName}.databinding.Activity${activityClass}Binding;
 import ${packageName}.viewmodel.${activityClass}ViewModel;
-
-import org.jetbrains.annotations.NotNull;
 
 public class ${activityClass}Activity extends AppActivity<Activity${activityClass}Binding,${activityClass}ViewModel> {
    

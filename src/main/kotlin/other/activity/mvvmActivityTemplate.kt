@@ -25,7 +25,7 @@ val mvvmActivityTemplate
         lateinit var layoutName: StringParameter
 
         val activityClass = stringParameter {
-            name = "Activity Name"
+            name = "Activity Name(只输入名字，不要包含Activity)"
             default = "Main"
             help = "只输入名字，不要包含Activity"
             constraints = listOf(Constraint.NONEMPTY)

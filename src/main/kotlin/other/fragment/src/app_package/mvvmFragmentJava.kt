@@ -16,8 +16,6 @@ import com.aiways.awbase.fragment.AppFragment;
 import ${packageName}.databinding.Fragment${fragmentClass}Binding;
 import ${packageName}.viewmodel.${fragmentClass}ViewModel;
 
-import org.jetbrains.annotations.NotNull;
-
 public class ${fragmentClass}Fragment extends AppFragment<Fragment${fragmentClass}Binding, ${fragmentClass}ViewModel> {
     @Override
     public void preOnCreate(Bundle savedInstanceState) {

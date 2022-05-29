@@ -9,6 +9,7 @@ package ${packageName}.viewmodel;
 import android.app.Application;
 import ${packageName}.model.${clazz}Model;
 import com.aiways.mvvmarms.mvvm.BaseViewModel;
+import org.jetbrains.annotations.NotNull;
 
 public class ${clazz}ViewModel extends BaseViewModel<${clazz}Model> {
 
