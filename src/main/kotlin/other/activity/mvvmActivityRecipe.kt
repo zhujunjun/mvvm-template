@@ -7,6 +7,8 @@ import other.common.res.layout.mvvmXml
 import other.activity.src.app_package.*
 import other.common.model.mvvmModel
 import other.common.model.mvvmModelJava
+import other.common.saveModel
+import other.common.saveViewModel
 import other.common.viewmodel.mvvmViewModelJava
 import other.common.viewmodel.mvvmViewModelKt
 
@@ -15,7 +17,8 @@ fun RecipeExecutor.mvvmActivityRecipe(
     activityClass: String,
     layoutName: String,
     packageName: String,
-    language: Language
+    language: Language,
+    bindingClass: String
 ) {
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = language.extension//projectData.language.extension
@@ -31,18 +34,41 @@ fun RecipeExecutor.mvvmActivityRecipe(
 ////            useMaterial2 = false
 //    )
 
+    val pkAge = projectData.applicationPackage ?: packageName
+
     if (language == Language.Kotlin) {
         //applicationPackage
         val mvvmActivity =
-            mvvmActivityKt(projectData.applicationPackage, activityClass, layoutName, packageName)
+            mvvmActivityKt(
+                pkAge,
+                activityClass,
+                layoutName,
+                packageName,
+                bindingClass,
+            )
         // 保存Activity
-        save(mvvmActivity, srcOut.resolve("ui/activity/${activityClass}Activity.${ktOrJavaExt}"))
+        save(mvvmActivity, srcOut.resolve("${activityClass}Activity.${ktOrJavaExt}"))
         // 保存xml
         save(mvvmXml(packageName, activityClass), resOut.resolve("layout/${layoutName}.xml"))
+        //合并manifestxml
+//        mergeXml(
+//            manifestXml(
+//                moduleData.projectTemplateData.applicationPackage,
+//                packageName,
+//                activityClass
+//            ), manifestDirOut.resolve("AndroidManifest.xml")
+//        )
         // 保存viewmodel
         save(
-            mvvmViewModelKt(packageName, activityClass),
-            srcOut.resolve("viewmodel/${activityClass}ViewModel.${ktOrJavaExt}")
+            mvvmViewModelKt(pkAge, activityClass),
+            saveViewModel(
+                srcOut,
+                pkAge,
+                packageName,
+                moduleData.srcDir.absolutePath,
+                activityClass,
+                ktOrJavaExt
+            )
         )
         // 保存repository
 //        save(
@@ -50,24 +76,50 @@ fun RecipeExecutor.mvvmActivityRecipe(
 //            srcOut.resolve("repository/${activityClass}Repository.${ktOrJavaExt}")
 //        )
         //保存model
-    save(mvvmModel(packageName, activityClass), srcOut.resolve("model/${activityClass}Model.${ktOrJavaExt}"))
+        save(
+            mvvmModel(pkAge, activityClass),
+            saveModel(
+                srcOut,
+                pkAge,
+                packageName,
+                moduleData.srcDir.absolutePath,
+                activityClass,
+                ktOrJavaExt
+            )
+        )
     } else if (language == Language.Java) {
         //applicationPackage
         val mvvmActivity =
             mvvmActivityJava(
-                projectData.applicationPackage,
+                pkAge,
                 activityClass,
                 layoutName,
-                packageName
+                packageName,
+                bindingClass
             )
         // 保存Activity
-        save(mvvmActivity, srcOut.resolve("ui/activity/${activityClass}Activity.${ktOrJavaExt}"))
+        save(mvvmActivity, srcOut.resolve("${activityClass}Activity.${ktOrJavaExt}"))
         // 保存xml
         save(mvvmXml(packageName, activityClass), resOut.resolve("layout/${layoutName}.xml"))
+        //合并manifestxml
+//        mergeXml(
+//            manifestXml(
+//                moduleData.projectTemplateData.applicationPackage,
+//                packageName,
+//                activityClass
+//            ), manifestDirOut.resolve("AndroidManifest.xml")
+//        )
         // 保存viewmodel
         save(
-            mvvmViewModelJava(packageName, activityClass),
-            srcOut.resolve("viewmodel/${activityClass}ViewModel.${ktOrJavaExt}")
+            mvvmViewModelJava(pkAge, activityClass),
+            saveViewModel(
+                srcOut,
+                pkAge,
+                packageName,
+                moduleData.srcDir.absolutePath,
+                activityClass,
+                ktOrJavaExt
+            )
         )
         // 保存repository
 //        save(
@@ -75,7 +127,17 @@ fun RecipeExecutor.mvvmActivityRecipe(
 //            srcOut.resolve("repository/${activityClass}Repository.${ktOrJavaExt}")
 //        )
         //保存model
-    save(mvvmModelJava(packageName, activityClass), srcOut.resolve("model/${activityClass}Model.${ktOrJavaExt}"))
+        save(
+            mvvmModelJava(pkAge, activityClass),
+            saveModel(
+                srcOut,
+                pkAge,
+                packageName,
+                moduleData.srcDir.absolutePath,
+                activityClass,
+                ktOrJavaExt
+            )
+        )
     }
 
 }

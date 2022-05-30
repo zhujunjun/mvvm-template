@@ -1,7 +1,7 @@
 package other.common.model
 
 fun mvvmModel(
-    packageName: String,
+    packageName: String?,
     clazz: String
 ) = """
     package ${packageName}.model

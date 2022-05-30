@@ -4,23 +4,24 @@ fun mvvmFragmentJava(
     applicationPackage: String?,
     fragmentClass: String,
     layoutName: String,
-    packageName: String
+    packageName: String,
+    bindingClass: String
 ) = """
-package ${packageName}.ui.fragment;
+package ${packageName};
 import android.os.Bundle;
 import android.view.View;
 
-import ${packageName}.R;
-import androidx.lifecycle.ViewModelProvider;
+import ${applicationPackage}.R;
+import androidx.lifecycle.ViewModelProviders;
 import com.aiways.awbase.fragment.AppFragment;
-import ${packageName}.databinding.Fragment${fragmentClass}Binding;
-import ${packageName}.viewmodel.${fragmentClass}ViewModel;
+import ${applicationPackage}.databinding.${bindingClass}Binding;
+import ${applicationPackage}.viewmodel.${fragmentClass}ViewModel;
 
-public class ${fragmentClass}Fragment extends AppFragment<Fragment${fragmentClass}Binding, ${fragmentClass}ViewModel> {
+public class ${fragmentClass}Fragment extends AppFragment<${bindingClass}Binding, ${fragmentClass}ViewModel> {
     @Override
     public void preOnCreate(Bundle savedInstanceState) {
         super.preOnCreate(savedInstanceState);
-        contentLayout =R.layout.${layoutName};
+        contentLayoutId =R.layout.${layoutName};
     }
 
     @Override

@@ -4,36 +4,37 @@ fun mvvmFragmentKt(
     applicationPackage: String?,
     fragmentClass: String,
     layoutName: String,
-    packageName: String
+    packageName: String,
+    bindingClass: String
 ) = """
-package ${packageName}.ui.fragment
+package $packageName
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 
-import ${packageName}.R
+import ${applicationPackage}.R
 import com.aiways.awbase.fragment.AppFragment
-import ${packageName}.databinding.Fragment${fragmentClass}Binding
-import ${packageName}.viewmodel.${fragmentClass}ViewModel
+import ${applicationPackage}.databinding.${bindingClass}Binding
+import ${applicationPackage}.viewmodel.${fragmentClass}ViewModel
 
 
-class ${fragmentClass}Fragment : AppFragment<Fragment${fragmentClass}Binding,${fragmentClass}ViewModel>() {
+class ${fragmentClass}Fragment : AppFragment<${bindingClass}Binding,${fragmentClass}ViewModel>() {
 
-    @Override fun preOnCreate(savedInstanceState: Bundle?) {
+    override fun preOnCreate(savedInstanceState: Bundle?) {
         super.preOnCreate(savedInstanceState)
-        contentLayout =R.layout.${layoutName}
+        contentLayoutId =R.layout.${layoutName}
     }
 
-    @Override fun initView(rootView: View?) {
-        mViewModel = ViewModelProviders.of(this).get(${fragmentClass}ViewModel.class)
+    override fun initView(rootView: View?) {
+        mViewModel = ViewModelProviders.of(this).get(${fragmentClass}ViewModel::class.java)
     }
 
-    @Override fun initData(savedInstanceState: Bundle?) {
+    override fun initData(savedInstanceState: Bundle?) {
 
     }
 
-    @Override fun setData(data: Any?) {
+    override fun setData(data: Any?) {
 
     }   
     

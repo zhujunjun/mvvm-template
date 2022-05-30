@@ -2,6 +2,7 @@ package other.activity
 
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.common.getDataBindingClass
 
 val mvvmActivityTemplate
     get() = template {
@@ -40,7 +41,6 @@ val mvvmActivityTemplate
         }
 
 
-
         val language = enumParameter<Language> {
             name = "Source Language"
             help = "请选择语言"
@@ -60,7 +60,8 @@ val mvvmActivityTemplate
                 activityClass.value,
                 layoutName.value,
                 packageName.value,
-                language.value
+                language.value,
+                getDataBindingClass(layoutName.value),
             )
         }
     }

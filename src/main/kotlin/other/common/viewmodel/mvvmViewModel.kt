@@ -1,7 +1,7 @@
 package other.common.viewmodel
 
 fun mvvmViewModelKt(
-    packageName: String,
+    packageName: String?,
     clazz: String
 ) = """
 package ${packageName}.viewmodel

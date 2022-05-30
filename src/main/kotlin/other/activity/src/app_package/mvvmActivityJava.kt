@@ -4,17 +4,18 @@ fun mvvmActivityJava(
     applicationPackage:String?,
     activityClass:String,
     layoutName:String,
-    packageName:String
+    packageName:String,
+    bindingClass: String
 )="""
-package ${packageName}.ui.activity;
+package ${packageName};
 import android.os.Bundle;
-import androidx.lifecycle.ViewModelProvider;
-import ${packageName}.R;
+import androidx.lifecycle.ViewModelProviders;
+import ${applicationPackage}.R;
 import com.aiways.awbase.activity.AppActivity;
-import ${packageName}.databinding.Activity${activityClass}Binding;
-import ${packageName}.viewmodel.${activityClass}ViewModel;
+import ${applicationPackage}.databinding.${bindingClass}Binding;
+import ${applicationPackage}.viewmodel.${activityClass}ViewModel;
 
-public class ${activityClass}Activity extends AppActivity<Activity${activityClass}Binding,${activityClass}ViewModel> {
+public class ${activityClass}Activity extends AppActivity<${bindingClass}Binding,${activityClass}ViewModel> {
    
    @Override
     public void preOnCreate(Bundle savedInstanceState) {

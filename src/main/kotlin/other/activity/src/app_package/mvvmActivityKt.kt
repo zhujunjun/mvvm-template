@@ -4,17 +4,18 @@ fun mvvmActivityKt(
     applicationPackage: String?,
     activityClass: String,
     layoutName: String,
-    packageName: String
+    packageName: String,
+    bindingClass: String,
 ) = """
-package ${packageName}.ui.activity
+package $packageName
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.aiways.awbase.activity.AppActivity
-import ${packageName}.R
-import ${packageName}.databinding.Activity${activityClass}Binding
-import ${packageName}.viewmodel.${activityClass}ViewModel
+import ${applicationPackage}.R
+import ${applicationPackage}.databinding.${bindingClass}Binding
+import ${applicationPackage}.viewmodel.${activityClass}ViewModel
 
-class ${activityClass}Activity : AppActivity<Activity${activityClass}Binding,${activityClass}ViewModel>() {
+class ${activityClass}Activity : AppActivity<${bindingClass}Binding,${activityClass}ViewModel>() {
 
    override fun preOnCreate(savedInstanceState: Bundle?) {
         super.preOnCreate(savedInstanceState)
@@ -22,7 +23,7 @@ class ${activityClass}Activity : AppActivity<Activity${activityClass}Binding,${a
     }
     
    override fun initView(savedInstanceState: Bundle?) {
-        mViewModel = ViewModelProviders.of(this).get(${activityClass}ViewModel.class)
+        mViewModel = ViewModelProviders.of(this).get(${activityClass}ViewModel::class.java)
     }
 
    override fun initData(savedInstanceState: Bundle?) {

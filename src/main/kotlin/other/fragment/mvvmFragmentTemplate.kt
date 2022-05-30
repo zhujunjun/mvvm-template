@@ -2,6 +2,7 @@ package other.fragment
 
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.common.getDataBindingClass
 
 val mvvmFragmentTemplate
     get() = template {
@@ -13,7 +14,12 @@ val mvvmFragmentTemplate
 
         category = Category.Other
         formFactor = FormFactor.Mobile
-        screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+        screens = listOf(
+            WizardUiContext.ActivityGallery,
+            WizardUiContext.MenuEntry,
+            WizardUiContext.NewProject,
+            WizardUiContext.NewModule
+        )
 
         val fragmentClass = stringParameter {
             name = "Fragment Name(只输入名字，不要包含Fragment)"
@@ -30,7 +36,7 @@ val mvvmFragmentTemplate
             suggest = { fragmentToLayout(fragmentClass.value.toLowerCase()) }
         }
 
-        val language= enumParameter<Language> {
+        val language = enumParameter<Language> {
             name = "Source Language"
             help = "请选择语言"
             default = Language.Kotlin
@@ -53,6 +59,7 @@ val mvvmFragmentTemplate
                 layoutName.value,
                 packageName.value,
                 language.value,
+                getDataBindingClass(layoutName.value),
             )
         }
     }
@@ -66,17 +73,17 @@ val defaultPackageNameParameter
         suggest = { packageName }
     }
 
-fun createLayoutName(className:String):String{
-    val array=className.toCharArray()
-    val string= StringBuilder()
+fun createLayoutName(className: String): String {
+    val array = className.toCharArray()
+    val string = StringBuilder()
     array.forEach {
-        if (it.isUpperCase()){
+        if (it.isUpperCase()) {
             //第一个首字母大写的话 不加下划线
-            if (string.isNotEmpty()){
+            if (string.isNotEmpty()) {
                 string.append("_")
             }
             string.append(it.toLowerCase())
-        }else {
+        } else {
             string.append(it)
         }
     }
