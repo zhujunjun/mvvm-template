@@ -1,17 +1,23 @@
 package other.activity.src.app_package
 
+import other.common.AppType
+
 fun mvvmActivityJava(
-    applicationPackage:String?,
-    activityClass:String,
-    layoutName:String,
-    packageName:String,
+    applicationPackage: String?,
+    activityClass: String,
+    layoutName: String,
+    packageName: String,
+    appType: AppType,
     bindingClass: String
-)="""
+): String {
+    val baseAppByImport =
+        if (appType == AppType.Mainland) "com.aiways.awbase.activity.AppActivity" else "com.aiways.eu.auto.base.activity.AppActivity"
+    return """
 package ${packageName};
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProviders;
 import ${applicationPackage}.R;
-import com.aiways.awbase.activity.AppActivity;
+import $baseAppByImport;
 import ${applicationPackage}.databinding.${bindingClass}Binding;
 import ${applicationPackage}.viewmodel.${activityClass}ViewModel;
 
@@ -35,3 +41,4 @@ public class ${activityClass}Activity extends AppActivity<${bindingClass}Binding
     
 }
 """.trimIndent()
+}

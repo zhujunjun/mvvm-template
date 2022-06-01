@@ -5,6 +5,7 @@ import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import other.common.res.layout.mvvmXml
 import other.activity.src.app_package.*
+import other.common.AppType
 import other.common.model.mvvmModel
 import other.common.model.mvvmModelJava
 import other.common.saveModel
@@ -18,6 +19,7 @@ fun RecipeExecutor.mvvmActivityRecipe(
     layoutName: String,
     packageName: String,
     language: Language,
+    appType: AppType,
     bindingClass: String
 ) {
     val (projectData, srcOut, resOut) = moduleData
@@ -44,6 +46,7 @@ fun RecipeExecutor.mvvmActivityRecipe(
                 activityClass,
                 layoutName,
                 packageName,
+                appType,
                 bindingClass,
             )
         // 保存Activity
@@ -77,7 +80,7 @@ fun RecipeExecutor.mvvmActivityRecipe(
 //        )
         //保存model
         save(
-            mvvmModel(pkAge, activityClass),
+            mvvmModel(pkAge, activityClass,appType),
             saveModel(
                 srcOut,
                 pkAge,
@@ -95,6 +98,7 @@ fun RecipeExecutor.mvvmActivityRecipe(
                 activityClass,
                 layoutName,
                 packageName,
+                appType,
                 bindingClass
             )
         // 保存Activity
@@ -128,7 +132,7 @@ fun RecipeExecutor.mvvmActivityRecipe(
 //        )
         //保存model
         save(
-            mvvmModelJava(pkAge, activityClass),
+            mvvmModelJava(pkAge, activityClass,appType),
             saveModel(
                 srcOut,
                 pkAge,

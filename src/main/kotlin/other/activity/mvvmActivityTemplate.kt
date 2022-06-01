@@ -2,12 +2,13 @@ package other.activity
 
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.common.AppType
 import other.common.getDataBindingClass
 
 val mvvmActivityTemplate
     get() = template {
         //reversion = 1
-        name = "MVVM Activity"
+        name = "AIWAYS MVVM Activity"
         description = "适用于AI-WAYS-MVVM框架的Activity"
         minApi = MIN_API
         //minBuildApi = MIN_API
@@ -40,6 +41,12 @@ val mvvmActivityTemplate
             suggest = { "${activityToLayout(activityClass.value.toLowerCase())}" }
         }
 
+        val appType = enumParameter<AppType> {
+            name = "App Type(app类型 Mainland:国内版 Foreign:国外版)"
+            help = "请选择App类型"
+            default = AppType.Mainland
+        }
+
 
         val language = enumParameter<Language> {
             name = "Source Language"
@@ -51,6 +58,7 @@ val mvvmActivityTemplate
             PackageNameWidget(packageName),
             TextFieldWidget(activityClass),
             TextFieldWidget(layoutName),
+            EnumWidget(appType),
             EnumWidget(language)
         )
 //        thumb { File("logo.png") }
@@ -61,6 +69,7 @@ val mvvmActivityTemplate
                 layoutName.value,
                 packageName.value,
                 language.value,
+                appType.value,
                 getDataBindingClass(layoutName.value),
             )
         }

@@ -1,16 +1,22 @@
 package other.activity.src.app_package
 
+import other.common.AppType
+
 fun mvvmActivityKt(
     applicationPackage: String?,
     activityClass: String,
     layoutName: String,
     packageName: String,
+    appType: AppType,
     bindingClass: String,
-) = """
+): String {
+    val baseAppByImport =
+        if (appType == AppType.Mainland) "com.aiways.awbase.activity.AppActivity" else "com.aiways.eu.auto.base.activity.AppActivity"
+    return """
 package $packageName
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
-import com.aiways.awbase.activity.AppActivity
+import $baseAppByImport
 import ${applicationPackage}.R
 import ${applicationPackage}.databinding.${bindingClass}Binding
 import ${applicationPackage}.viewmodel.${activityClass}ViewModel
@@ -31,3 +37,4 @@ class ${activityClass}Activity : AppActivity<${bindingClass}Binding,${activityCl
     }
  } 
 """.trimIndent()
+}

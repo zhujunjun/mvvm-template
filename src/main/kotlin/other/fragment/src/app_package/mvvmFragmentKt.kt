@@ -1,12 +1,18 @@
 package other.fragment.src.app_package
 
+import other.common.AppType
+
 fun mvvmFragmentKt(
     applicationPackage: String?,
     fragmentClass: String,
     layoutName: String,
     packageName: String,
+    appType: AppType,
     bindingClass: String
-) = """
+): String {
+    val baseFragmentByImport =
+        if (appType == AppType.Mainland) "com.aiways.awbase.fragment.AppFragment" else "com.aiways.eu.auto.base.fragment.AppFragment"
+    return """
 package $packageName
 
 import android.os.Bundle
@@ -14,7 +20,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProviders
 
 import ${applicationPackage}.R
-import com.aiways.awbase.fragment.AppFragment
+import $baseFragmentByImport
 import ${applicationPackage}.databinding.${bindingClass}Binding
 import ${applicationPackage}.viewmodel.${fragmentClass}ViewModel
 
@@ -45,3 +51,4 @@ class ${fragmentClass}Fragment : AppFragment<${bindingClass}Binding,${fragmentCl
     }
 }
 """.trimIndent()
+}

@@ -2,12 +2,13 @@ package other.fragment
 
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.common.AppType
 import other.common.getDataBindingClass
 
 val mvvmFragmentTemplate
     get() = template {
 //        revision = 1
-        name = "MVVM Fragment"
+        name = "AIWAYS MVVM Fragment"
         description = "适用于AI-WAYS-MVVM框架的Fragment"
         minApi = MIN_API
         minApi = MIN_API
@@ -36,6 +37,12 @@ val mvvmFragmentTemplate
             suggest = { fragmentToLayout(fragmentClass.value.toLowerCase()) }
         }
 
+        val appType = enumParameter<AppType> {
+            name = "App Type(app类型 Mainland:国内版 Foreign:国外版)"
+            help = "请选择App类型"
+            default = AppType.Mainland
+        }
+
         val language = enumParameter<Language> {
             name = "Source Language"
             help = "请选择语言"
@@ -48,6 +55,7 @@ val mvvmFragmentTemplate
             PackageNameWidget(packageName),
             TextFieldWidget(fragmentClass),
             TextFieldWidget(layoutName),
+            EnumWidget(appType),
             EnumWidget(language),
         )
 //        thumb { File("logo.png") }
@@ -59,6 +67,7 @@ val mvvmFragmentTemplate
                 layoutName.value,
                 packageName.value,
                 language.value,
+                appType.value,
                 getDataBindingClass(layoutName.value),
             )
         }

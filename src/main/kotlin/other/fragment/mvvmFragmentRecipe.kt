@@ -3,6 +3,7 @@ package other.fragment
 import com.android.tools.idea.wizard.template.Language
 import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
+import other.common.AppType
 import other.common.manifestXml
 import other.common.model.mvvmModel
 import other.common.model.mvvmModelJava
@@ -20,6 +21,7 @@ fun RecipeExecutor.mvvmFragmentRecipe(
     layoutName: String,
     packageName: String,
     language: Language,
+    appType: AppType,
     bindingClass: String
 ) {
     val (projectData, srcOut, resOut) = moduleData
@@ -44,6 +46,7 @@ fun RecipeExecutor.mvvmFragmentRecipe(
                 fragmentClass,
                 layoutName,
                 packageName,
+                appType,
                 bindingClass
             )
         // 保存fragment
@@ -69,7 +72,7 @@ fun RecipeExecutor.mvvmFragmentRecipe(
 //        )
         //保存Model
         save(
-            mvvmModel(pkAge, fragmentClass),
+            mvvmModel(pkAge, fragmentClass, appType),
             saveModel(
                 srcOut,
                 pkAge,
@@ -87,6 +90,7 @@ fun RecipeExecutor.mvvmFragmentRecipe(
                 fragmentClass,
                 layoutName,
                 packageName,
+                appType,
                 bindingClass
             )
         // 保存fragment
@@ -112,7 +116,7 @@ fun RecipeExecutor.mvvmFragmentRecipe(
 //        )
         //保存Model
         save(
-            mvvmModelJava(pkAge, fragmentClass),
+            mvvmModelJava(pkAge, fragmentClass, appType),
             saveModel(
                 srcOut,
                 pkAge,
